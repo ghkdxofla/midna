@@ -20,6 +20,8 @@ import {
 import Link from "next/link";
 
 import { toast } from "@/components/ui/use-toast";
+import Image from "next/image";
+import logo from "@/public/logo.webp";
 
 const FormSchema = z.object({
   dna: z.string().min(2, {
@@ -88,7 +90,10 @@ export default function Dna() {
     <div className="mx-auto -mt-32 h-full pt-16">
       <div className="flex h-full w-full items-center justify-center pt-16">
         <div className="flex basis-9/12 flex-col items-center justify-center 2xl:basis-3/12">
-          <h1 className="text-xl font-bold">MiDNA</h1>
+          <div className="mb-4 transform origin-center logoAnimation rotate-[30deg]">
+            <Image src={logo} alt="Logo" width={120} height={120} />
+          </div>
+          <h1 className="text-3xl font-bold">MiDNA</h1>
           <Search />
         </div>
       </div>

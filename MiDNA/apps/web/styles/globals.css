@@ -57,3 +57,38 @@
     @apply bg-background text-foreground;
   }
 }
+
+.logoAnimation {
+  animation: rotateBack 0.6s ease-in-out;
+}
+
+.logoAnimation:hover {
+  animation: rotateMove 0.6s ease-in-out;
+}
+
+@keyframes rotateMove {
+  0% {
+    transform: rotate(30deg);
+  }
+  25% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(30deg);
+  }
+  75% {
+    transform: rotate(20deg);
+  }
+  100% {
+    transform: rotate(30deg);
+  }
+}
+
+@keyframes rotateBack {
+  0% {
+    transform: rotate(30deg);
+  }
+  100% {
+    transform: rotate(30deg);
+  }
+}
