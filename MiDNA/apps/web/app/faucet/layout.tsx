@@ -1,5 +1,5 @@
 "use client";
-import AsyncLayoutDynamic from "@/containers/drip/async-layout-dynamic";
+import AsyncLayoutDynamic from "@/containers/faucet/async-layout-dynamic";
 
 export default function Layout({
   children,
