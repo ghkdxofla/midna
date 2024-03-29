@@ -44,5 +44,5 @@ describe("balances", () => {
 
     expect(block?.transactions[0].status.toBoolean()).toBe(true);
     expect(balance?.toBigInt()).toBe(1000n);
-  }, 1_000_000);
+  }, 1_000_000); // 1000 second timeout
 });
