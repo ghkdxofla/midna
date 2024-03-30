@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
@@ -30,6 +31,8 @@ const FormSchema = z.object({
 });
 
 const Search = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -46,6 +49,7 @@ const Search = () => {
         </pre>
       ),
     });
+    router.push("/result");
   }
 
   return (
@@ -90,7 +94,7 @@ export default function Dna() {
     <div className="mx-auto -mt-32 h-full pt-16">
       <div className="flex h-full w-full items-center justify-center pt-16">
         <div className="flex basis-9/12 flex-col items-center justify-center 2xl:basis-3/12">
-          <div className="mb-4 transform origin-center logoAnimation rotate-[30deg]">
+          <div className="logoAnimation mb-4 origin-center rotate-[30deg] transform">
             <Image src={logo} alt="Logo" width={120} height={120} />
           </div>
           <h1 className="text-3xl font-bold">MiDNA</h1>

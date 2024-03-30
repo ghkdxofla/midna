@@ -27,6 +27,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.48.2",
+    "recharts": "^2.12.3",
     "reflect-metadata": "^0.2.1",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
@@ -49,10 +50,10 @@
     "typescript": "^5"
   },
   "peerDependencies": {
+    "@proto-kit/library": "*",
     "@proto-kit/module": "*",
     "@proto-kit/sdk": "*",
     "@proto-kit/sequencer": "*",
-    "@proto-kit/library": "*",
     "o1js": "0.13.1",
     "tsyringe": "^4.7.0"
   }
