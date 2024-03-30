@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
-import protokit from "@/public/protokit-zinc.svg";
 import Image from "next/image";
 // @ts-ignore
 import truncateMiddle from "truncate-middle";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Chain } from "./chain";
 import { Separator } from "./ui/separator";
+import logo from "@/public/logo.webp";
+
+import Link from "next/link";
 
 export interface HeaderProps {
   loading: boolean;
@@ -28,7 +30,16 @@ export default function Header({
     <div className="flex items-center justify-between border-b p-2 shadow-sm">
       <div className="container flex">
         <div className="flex basis-6/12 items-center justify-start">
-          <Image className="h-8 w-8" src={protokit} alt={"Protokit logo"} />
+          <Link href="/">
+            <Image
+              className="inline-block"
+              width={48}
+              height={48}
+              src={logo}
+              alt={"MiDNA logo"}
+            />
+            <h1 className="inline-block pt-2 text-xl font-semibold">MiDNA</h1>
+          </Link>
           <Separator className="mx-4 h-8" orientation={"vertical"} />
           <div className="flex grow">
             <Chain height={blockHeight} />

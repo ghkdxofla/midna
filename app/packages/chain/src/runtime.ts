@@ -2,8 +2,9 @@ import { Balance } from "@proto-kit/library";
 import { Balances } from "./balances";
 import { ModulesConfig } from "@proto-kit/common";
 import { GuestBook } from "./guest-book";
-import { AnaylsisService } from "./analysis-service"
-import { MerkleTree, MerkleWitness} from "o1js"
+import { AnaylsisService } from "./analysis-service";
+import { Account } from "./analysis-service/account";
+import { MerkleTree, MerkleWitness, Field, PublicKey } from "o1js";
 
 export const modules = {
   Balances,
@@ -11,9 +12,26 @@ export const modules = {
   AnaylsisService,
 };
 
+const wallets = [
+  "B62qrBX5U4BLvaFVtseNJQacuwcNfbDHK93qA2m5ij1UxQYSz9TkANr",
+  "B62qjQbVR77UBSixAth4rQmNQi1fa2hKkSsVyMdp4Cp25VX2ZedDd5t",
+];
+
+let accounts: Map<string, Account> = new Map<string, Account>(
+  wallets.map((address: string, index: number) => {
+    return [
+      address,
+      new Account({
+        accountId: PublicKey.fromBase58(address),
+        url: Field(""),
+      }),
+    ];
+  })
+);
+
 const tree = new MerkleTree(8);
-const treeRoot = tree.getRoot();
-const circuitWitness = tree.getWitness(0n);
+tree.setLeaf(0n, accounts.get(wallets[0])!.hash());
+tree.setLeaf(1n, accounts.get(wallets[1])!.hash());
 
 export const config: ModulesConfig<typeof modules> = {
   Balances: {
@@ -21,7 +39,9 @@ export const config: ModulesConfig<typeof modules> = {
   },
   GuestBook: {},
   AnaylsisService: {
-    treeRoot: treeRoot,
+    tree: tree,
+    wallets: wallets,
+    accounts: accounts,
   },
 };
 

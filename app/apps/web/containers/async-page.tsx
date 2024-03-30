@@ -1,5 +1,6 @@
 "use client";
 
+import { useWalletStore } from "@/lib/stores/wallet";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -24,14 +25,32 @@ import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import logo from "@/public/logo.webp";
 
+import { useAnalysis } from "@/lib/stores/analysis";
+
 const FormSchema = z.object({
   dna: z.string().min(2, {
     message: "DNA must be at least 2 characters.",
   }),
 });
 
-const Search = () => {
+export interface SearchProps {
+  wallet?: string;
+  loading: boolean;
+  onConnectWallet: () => void;
+  onAnalysis: () => void;
+}
+
+const Search = ({
+  wallet,
+  loading,
+  onConnectWallet,
+  onAnalysis,
+}: SearchProps) => {
   const router = useRouter();
+
+  if (!wallet) {
+    onConnectWallet();
+  }
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -49,7 +68,8 @@ const Search = () => {
         </pre>
       ),
     });
-    router.push("/result");
+    onAnalysis();
+    // router.push("/result");
   }
 
   return (
@@ -90,6 +110,9 @@ const Search = () => {
 };
 
 export default function Dna() {
+  const wallet = useWalletStore();
+  const analysis = useAnalysis();
+
   return (
     <div className="mx-auto -mt-32 h-full pt-16">
       <div className="flex h-full w-full items-center justify-center pt-16">
@@ -98,19 +121,13 @@ export default function Dna() {
             <Image src={logo} alt="Logo" width={120} height={120} />
           </div>
           <h1 className="text-3xl font-bold">MiDNA</h1>
-          <Search />
+          <Search
+            wallet={wallet.wallet}
+            onConnectWallet={wallet.connectWallet}
+            onAnalysis={analysis}
+            loading={false}
+          />
         </div>
-      </div>
-      <div className="flex w-full items-center justify-center pt-16">
-        <nav>
-          <ul>
-            <li>
-              <Link href="/faucet" className="text-blue-500 underline">
-                Faucet
-              </Link>
-            </li>
-          </ul>
-        </nav>
       </div>
     </div>
   );
