@@ -21,7 +21,7 @@ const pk = PublicKey.fromBase58(
 );
 
 @runtimeModule()
-export class AnaylsisService extends BaseBalances<AnalysisServiceConfig> {
+export class AnalysisService extends BaseBalances<AnalysisServiceConfig> {
   @state() public treeRoot = State.from<Field>(Field);
   @state() public accounts = StateMap.from<PublicKey, Account>(PublicKey, Account);
 
