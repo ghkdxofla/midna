@@ -52,26 +52,17 @@ export const useAnalysisStore = create<
       set((state) => {
         state.loading = true;
       });
-
-      const analysis = client.runtime.resolve("AnaylsisService");
+      const analysis = client.runtime.resolve("AnalysisService");
       const index = analysis.config.wallets.indexOf(address);
-
-      const treeRoot =
-        await client.query.runtime.AnaylsisService.treeRoot.get();
-
+      const treeRoot = await client.query.runtime.AnalysisService.treeRoot.get();
       if (!treeRoot) {
         return;
       }
-
-      const root = treeRoot.value[1][1];
-
       const witness = analysis.config.tree.getWitness(BigInt(index));
       const path = new Path(witness);
-      const account = analysis.config.accounts
-        .get(address)!
-        .updateUrl(Field(index));
+      const account = await analysis.accounts.get(PublicKey.fromBase58(address)).value;
 
-      path.calculateRoot(account.hash()).assertEquals(root);
+      path.calculateRoot(account.hash()).assertEquals(treeRoot);
 
       analysis.config.tree.setLeaf(BigInt(index), account.hash());
 
@@ -81,12 +72,13 @@ export const useAnalysisStore = create<
       });
     },
     async analysis(client: Client, address: string) {
-      const analysis = client.runtime.resolve("AnaylsisService");
+      const analysis = client.runtime.resolve("AnalysisService");
       const sender = PublicKey.fromBase58(address);
 
       const index = analysis.config.wallets.indexOf(address);
       const witness = analysis.config.tree.getWitness(BigInt(index));
       const path = new Path(witness);
+      console.log(analysis.config.accounts);
       const account = analysis.config.accounts.get(address)!;
 
       const MINA = 1e9;

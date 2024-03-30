@@ -4,8 +4,8 @@ import {
   runtimeModule,
   state,
 } from "@proto-kit/module";
-import { State, assert } from "@proto-kit/protocol";
-import { Field, MerkleTree, MerkleWitness, PublicKey } from "o1js";
+import { State, StateMap, assert } from "@proto-kit/protocol";
+import { Field, MerkleTree, PublicKey, SmartContract } from "o1js";
 import { Account, Path } from "./account";
 import { UInt64 } from "@proto-kit/library";
 import { Balance, Balances as BaseBalances, TokenId } from "@proto-kit/library";
@@ -23,6 +23,7 @@ const pk = PublicKey.fromBase58(
 @runtimeModule()
 export class AnaylsisService extends BaseBalances<AnalysisServiceConfig> {
   @state() public treeRoot = State.from<Field>(Field);
+  @state() public accounts = StateMap.from<PublicKey, Account>(PublicKey, Account);
 
   @runtimeMethod()
   async analysis(
@@ -36,6 +37,9 @@ export class AnaylsisService extends BaseBalances<AnalysisServiceConfig> {
       .get()
       .orElse(Field(this.config.tree.getRoot()));
 
+    console.log("test1", treeRoot);
+    console.log("test2", account.hash());
+    console.log("test3", this.accounts.get(account.accountId).value);
     path.calculateRoot(account.hash()).assertEquals(treeRoot);
 
     const newAccount = account.updateUrl(userNo.value);
@@ -44,5 +48,6 @@ export class AnaylsisService extends BaseBalances<AnalysisServiceConfig> {
 
     this.treeRoot.set(newTreeRoot);
     this.transfer(tokenId, account.accountId, pk, amount);
+    this.accounts.set(account.accountId, newAccount);
   }
 }
