@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { ReactNode, useEffect, useMemo, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -19,13 +21,15 @@ import {
 } from "@/components/ui/form";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 
 import { toast } from "@/components/ui/use-toast";
 import Image from "next/image";
 import logo from "@/public/logo.webp";
 
-import { useAnalysis } from "@/lib/stores/analysis";
+import { useAnalysis, useAnalysisStore } from "@/lib/stores/analysis";
+
+import { buttonVariants } from "@/components/ui/button";
 
 const FormSchema = z.object({
   dna: z.string().min(2, {
@@ -46,8 +50,6 @@ const Search = ({
   onConnectWallet,
   onAnalysis,
 }: SearchProps) => {
-  const router = useRouter();
-
   if (!wallet) {
     onConnectWallet();
   }
@@ -69,7 +71,6 @@ const Search = ({
       ),
     });
     onAnalysis();
-    // router.push("/result");
   }
 
   return (
@@ -100,9 +101,6 @@ const Search = ({
               <Button type="submit">Search</Button>
             </div>
           </div>
-          <div className="flex">
-            <FormDescription>This is your DNA.</FormDescription>
-          </div>
         </form>
       </Form>
     </div>
@@ -111,7 +109,26 @@ const Search = ({
 
 export default function Dna() {
   const wallet = useWalletStore();
+  const analysisStore = useAnalysisStore();
   const analysis = useAnalysis();
+  const router = useRouter();
+  const [link, setLink] = useState(<></>);
+
+  useEffect(() => {
+    if (!wallet.wallet) return;
+
+    const url = analysisStore.url[wallet.wallet] ?? "";
+    if (url) {
+      setLink(
+        <Link
+          href={`/result/${url}`}
+          className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        >
+          View your result
+        </Link>,
+      );
+    }
+  }, [analysisStore.url]);
 
   return (
     <div className="mx-auto -mt-32 h-full pt-16">
@@ -127,6 +144,7 @@ export default function Dna() {
             onAnalysis={analysis}
             loading={false}
           />
+          {link}
         </div>
       </div>
     </div>

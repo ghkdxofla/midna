@@ -41,8 +41,13 @@ export default function Header({
             <h1 className="inline-block pt-2 text-xl font-semibold">MiDNA</h1>
           </Link>
           <Separator className="mx-4 h-8" orientation={"vertical"} />
-          <div className="flex grow">
+          <div className="flex basis-12">
             <Chain height={blockHeight} />
+          </div>
+          <div className="flex grow">
+            <Link href="/faucet" className="rounded px-4 py-2">
+              Faucet
+            </Link>
           </div>
         </div>
         <div className="flex basis-6/12 flex-row items-center justify-end">

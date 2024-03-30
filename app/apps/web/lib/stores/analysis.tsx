@@ -3,7 +3,14 @@ import { Client, useClientStore } from "./client";
 import { immer } from "zustand/middleware/immer";
 import { PendingTransaction, UnsignedTransaction } from "@proto-kit/sequencer";
 import { Balance, BalancesKey, TokenId, UInt64 } from "@proto-kit/library";
-import { Poseidon, PublicKey, MerkleWitness, Struct, Field } from "o1js";
+import {
+  Poseidon,
+  PublicKey,
+  MerkleWitness,
+  Struct,
+  Field,
+  MerkleTree,
+} from "o1js";
 import { useCallback, useEffect } from "react";
 import { useChainStore } from "./chain";
 import { useWalletStore } from "./wallet";
@@ -45,22 +52,32 @@ export const useAnalysisStore = create<
       set((state) => {
         state.loading = true;
       });
+
       const analysis = client.runtime.resolve("AnaylsisService");
       const index = analysis.config.wallets.indexOf(address);
+
       const treeRoot =
         await client.query.runtime.AnaylsisService.treeRoot.get();
 
-      const root = MerkleTree(treeRoot.value[1][1]);
+      if (!treeRoot) {
+        return;
+      }
 
-      const witness = root.getWitness(BigInt(index));
+      const root = treeRoot.value[1][1];
+
+      const witness = analysis.config.tree.getWitness(BigInt(index));
       const path = new Path(witness);
-      const account = analysis.config.accounts.get(address)!;
+      const account = analysis.config.accounts
+        .get(address)!
+        .updateUrl(Field(index));
 
       path.calculateRoot(account.hash()).assertEquals(root);
 
+      analysis.config.tree.setLeaf(BigInt(index), account.hash());
+
       set((state) => {
         state.loading = false;
-        state.url[address] = root;
+        state.url[address] = index.toString();
       });
     },
     async analysis(client: Client, address: string) {
@@ -72,8 +89,16 @@ export const useAnalysisStore = create<
       const path = new Path(witness);
       const account = analysis.config.accounts.get(address)!;
 
+      const MINA = 1e9;
+      const tokenId = TokenId.from(1);
       const tx = await client.transaction(sender, () => {
-        analysis.analysis(account, path, UInt64.from(index));
+        analysis.analysis(
+          account,
+          path,
+          UInt64.from(index),
+          UInt64.from(10 * MINA),
+          tokenId,
+        );
       });
 
       await tx.sign();
@@ -94,7 +119,6 @@ export const useObserveAnalysis = () => {
   useEffect(() => {
     if (!client.client || !wallet.wallet) return;
 
-    console.log("url", analysis.url);
     analysis.loadAnalysis(client.client, wallet.wallet);
   }, [client.client, chain.block?.height, wallet.wallet]);
 };

@@ -13,58 +13,13 @@ import { Button } from "@/components/ui/button";
 
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-const data = [
-  {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000,
-  },
-];
+interface Data {
+  name: string;
+  total: number;
+}
 
-const ChartA = () => {
+const ChartA = ({ data }: { data: Data[] }) => {
+  if (!data.length) return <p>You do not have access permission.</p>;
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={data}>
@@ -93,13 +48,12 @@ const ChartA = () => {
   );
 };
 
-export function Charts() {
+export function Charts({ data }: { data: Data[] }) {
   return (
     <Card className="w-full p-4">
       <div className="mb-2">
-        <h2 className="text-xl font-bold">Result</h2>
-        <p className="mt-1 text-sm text-zinc-500">Your DNA Result</p>
-        <ChartA />
+        <h2 className="text-xl font-bold">Analysis</h2>
+        <ChartA data={data} />
       </div>
     </Card>
   );
