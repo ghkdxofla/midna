@@ -101,6 +101,11 @@ const Search = ({
               <Button type="submit">Search</Button>
             </div>
           </div>
+          <div>
+            <FormDescription>
+              AAAAAAAAATTTTTTTTTTTTTTTTCCCCCCCCC
+            </FormDescription>
+          </div>
         </form>
       </Form>
     </div>

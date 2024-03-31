@@ -31,14 +31,7 @@ export default function Header({
       <div className="container flex">
         <div className="flex basis-6/12 items-center justify-start">
           <Link href="/">
-            <Image
-              className="inline-block"
-              width={48}
-              height={48}
-              src={logo}
-              alt={"MiDNA logo"}
-            />
-            <h1 className="inline-block pt-2 text-xl font-semibold">MiDNA</h1>
+            <h1 className="inline-block text-xl font-semibold">MiDNA</h1>
           </Link>
           <Separator className="mx-4 h-8" orientation={"vertical"} />
           <div className="flex basis-12">

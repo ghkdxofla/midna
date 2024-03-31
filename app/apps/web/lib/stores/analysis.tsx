@@ -14,6 +14,7 @@ import {
 import { useCallback, useEffect } from "react";
 import { useChainStore } from "./chain";
 import { useWalletStore } from "./wallet";
+import { assert } from "console";
 
 class Path extends MerkleWitness(8) {}
 class Account extends Struct({
@@ -54,13 +55,15 @@ export const useAnalysisStore = create<
       });
       const analysis = client.runtime.resolve("AnalysisService");
       const index = analysis.config.wallets.indexOf(address);
-      const treeRoot = await client.query.runtime.AnalysisService.treeRoot.get();
+      const treeRoot =
+        await client.query.runtime.AnalysisService.treeRoot.get();
       if (!treeRoot) {
         return;
       }
       const witness = analysis.config.tree.getWitness(BigInt(index));
       const path = new Path(witness);
-      const account = await analysis.accounts.get(PublicKey.fromBase58(address)).value;
+      const account = await analysis.accounts.get(PublicKey.fromBase58(address))
+        .value;
 
       path.calculateRoot(account.hash()).assertEquals(treeRoot);
 
@@ -78,19 +81,15 @@ export const useAnalysisStore = create<
       const index = analysis.config.wallets.indexOf(address);
       const witness = analysis.config.tree.getWitness(BigInt(index));
       const path = new Path(witness);
-      console.log(analysis.config.accounts);
-      const account = analysis.config.accounts.get(address)!;
+      const account = analysis.config.accounts.get(address);
 
-      const MINA = 1e9;
-      const tokenId = TokenId.from(1);
+      if (account === undefined) {
+        throw new Error("Account not found");
+      }
+
+      const tokenId = TokenId.from(0);
       const tx = await client.transaction(sender, () => {
-        analysis.analysis(
-          account,
-          path,
-          UInt64.from(index),
-          UInt64.from(10 * MINA),
-          tokenId,
-        );
+        analysis.analysis(account, path, UInt64.from(index), tokenId);
       });
 
       await tx.sign();

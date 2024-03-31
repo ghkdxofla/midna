@@ -40,8 +40,8 @@ export const useBalancesStore = create<
       });
 
       const key = BalancesKey.from(tokenId, PublicKey.fromBase58(address));
-
-      const balance = await client.query.runtime.Balances.balances.get(key);
+      const balance =
+        await client.query.runtime.AnalysisService.balances.get(key);
 
       set((state) => {
         state.loading = false;
@@ -49,7 +49,8 @@ export const useBalancesStore = create<
       });
     },
     async faucet(client: Client, address: string) {
-      const balances = client.runtime.resolve("Balances");
+      // const balances = client.runtime.resolve("Balances");
+      const balances = client.runtime.resolve("AnalysisService");
       const sender = PublicKey.fromBase58(address);
 
       const tx = await client.transaction(sender, () => {
