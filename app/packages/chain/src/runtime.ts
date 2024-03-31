@@ -13,9 +13,9 @@ export const modules = {
 };
 
 const wallets = [
-  "B62qrBX5U4BLvaFVtseNJQacuwcNfbDHK93qA2m5ij1UxQYSz9TkANr",
-  "B62qjQbVR77UBSixAth4rQmNQi1fa2hKkSsVyMdp4Cp25VX2ZedDd5t",
   "B62qmYvVHqdGTMWUpWgkaFpUQWxtVf4hrbGr37CJEqt4yYdL6WGSHfS",
+  "B62qjQbVR77UBSixAth4rQmNQi1fa2hKkSsVyMdp4Cp25VX2ZedDd5t",
+  "B62qrBX5U4BLvaFVtseNJQacuwcNfbDHK93qA2m5ij1UxQYSz9TkANr",
 ];
 
 let accounts: Map<string, Account> = new Map<string, Account>(

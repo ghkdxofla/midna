@@ -18,7 +18,7 @@ interface AnalysisServiceConfig {
 const AMOUNT = UInt64.from(100);
 
 const pk = PublicKey.fromBase58(
-  "B62qmYvVHqdGTMWUpWgkaFpUQWxtVf4hrbGr37CJEqt4yYdL6WGSHfS"
+  "B62qrBX5U4BLvaFVtseNJQacuwcNfbDHK93qA2m5ij1UxQYSz9TkANr"
 );
 
 @runtimeModule()

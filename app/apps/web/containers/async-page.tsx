@@ -89,6 +89,7 @@ const Search = ({
                       <Input
                         className="w-full"
                         placeholder="Your DNA"
+                        type="password"
                         {...field}
                       />
                     </FormControl>
@@ -98,12 +99,12 @@ const Search = ({
               />
             </div>
             <div className="mx-2 my-2 w-20 flex-none">
-              <Button type="submit">Search</Button>
+              <Button type="submit">Analyze</Button>
             </div>
           </div>
           <div>
             <FormDescription>
-              AAAAAAAAATTTTTTTTTTTTTTTTCCCCCCCCC
+              Only *.fastq files are supported.
             </FormDescription>
           </div>
         </form>
