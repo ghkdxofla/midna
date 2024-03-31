@@ -1,5 +1,4 @@
 import {
-  RuntimeModule,
   runtimeMethod,
   runtimeModule,
   state,
@@ -19,7 +18,7 @@ interface AnalysisServiceConfig {
 const AMOUNT = UInt64.from(100);
 
 const pk = PublicKey.fromBase58(
-  "B62qjQbVR77UBSixAth4rQmNQi1fa2hKkSsVyMdp4Cp25VX2ZedDd5t"
+  "B62qmYvVHqdGTMWUpWgkaFpUQWxtVf4hrbGr37CJEqt4yYdL6WGSHfS"
 );
 
 @runtimeModule()
@@ -31,7 +30,7 @@ export class AnalysisService extends BaseBalances<AnalysisServiceConfig> {
   );
 
   @runtimeMethod()
-  async analysis(
+  public analysis(
     account: Account,
     path: Path,
     userNo: UInt64,

@@ -110,6 +110,9 @@ importers:
       tsyringe:
         specifier: ^4.7.0
         version: 4.8.0
+      uuid:
+        specifier: '*'
+        version: 9.0.1
       zod:
         specifier: ^3.22.4
         version: 3.22.4
