@@ -1,4 +1,4 @@
-# Ethseoul 2024 KETH
+# Ethseoul 2024 KETH (MiDNA)
 
 Repository for ETHSeoul 2024
 
