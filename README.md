@@ -1,6 +1,11 @@
 # Ethseoul 2024 KETH (MiDNA)
+Repository for ETHSeoul 2024 Project, MiDNA
 
-Repository for ETHSeoul 2024
+## Description
+MiDNA (Mina for DNA Analysis) is a service that utilizes Mina and ZKApp.   
+DNA sequence data are analyzed by the service in an offline. Only the user who made the payment with Mina can see the results.
+<img width="1427" alt="image" src="https://github.com/ghkdxofla/ethseoul-2024-keth/assets/26355065/ccf06294-7cee-4860-9541-c32c62403f8e">
+<img width="1512" alt="image" src="https://github.com/ghkdxofla/ethseoul-2024-keth/assets/26355065/c3074ce5-48a9-4cd1-909c-61b3ad618819">
 
 ## Setup
 
