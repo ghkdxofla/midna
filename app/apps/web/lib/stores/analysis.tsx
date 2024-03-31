@@ -31,6 +31,10 @@ export interface AnalysisState {
   url: {
     [key: string]: string;
   };
+  data: {
+    [key: string]: string;
+  };
+  saveData: (url: string, data: string) => void;
   loadAnalysis: (client: Client, address: string) => Promise<void>;
   analysis: (client: Client, address: string) => Promise<PendingTransaction>;
 }
@@ -49,6 +53,12 @@ export const useAnalysisStore = create<
   immer((set) => ({
     loading: Boolean(false),
     url: {},
+    data: {},
+    saveData(url: string, data:string) {
+      set((state) => {
+        state.data[url] = data;
+      });
+    },
     async loadAnalysis(client: Client, address: string) {
       set((state) => {
         state.loading = true;

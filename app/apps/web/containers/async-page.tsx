@@ -42,6 +42,7 @@ export interface SearchProps {
   loading: boolean;
   onConnectWallet: () => void;
   onAnalysis: () => void;
+  onSave: (data: string) => void;
 }
 
 const Search = ({
@@ -49,6 +50,7 @@ const Search = ({
   loading,
   onConnectWallet,
   onAnalysis,
+  onSave,
 }: SearchProps) => {
   if (!wallet) {
     onConnectWallet();
@@ -71,6 +73,7 @@ const Search = ({
       ),
     });
     onAnalysis();
+    onSave(data.dna);
   }
 
   return (
@@ -119,11 +122,13 @@ export default function Dna() {
   const analysis = useAnalysis();
   const router = useRouter();
   const [link, setLink] = useState(<></>);
+  const [data, setData] = useState("");
 
   useEffect(() => {
     if (!wallet.wallet) return;
 
     const url = analysisStore.url[wallet.wallet] ?? "";
+    analysisStore.saveData(url, data);
     if (url) {
       setLink(
         <Link
@@ -149,6 +154,7 @@ export default function Dna() {
             onConnectWallet={wallet.connectWallet}
             onAnalysis={analysis}
             loading={false}
+            onSave={setData}
           />
           {link}
         </div>

@@ -8,13 +8,12 @@ import { useWalletStore } from "@/lib/stores/wallet";
 import { useClientStore } from "@/lib/stores/client";
 
 function extractSequencesFromFastq(fastqContent: string): string[] {
-  const lines = fastqContent.split('\n');
-
+  const lines = fastqContent.split(' ');
   const sequences: string[] = [];
 
   // FASTQ 파일의 특성상, 두 번째 줄은 각 시퀀스를 포함하므로,
   // 모든 4줄 집합의 두 번째 줄을 추출
-  for (let i = 2; i < lines.length; i += 4) {
+  for (let i = 3; i < lines.length; i += 8) {
     sequences.push(lines[i]);
   }
 
@@ -86,7 +85,6 @@ function analyzeSequences(fastqData: string) {
 
   for (const [disease, subsequence] of rareDiseaseSubsequences) {
     chartData[disease] = sequences.map((sequence, index) => {
-      console.log(sequence);
       const similarityScore = calculateSimilarityScore(sequence, subsequence, subsequence.length * 0.7);
       return {
         name: `Sequence ${index + 1}`,
@@ -124,21 +122,10 @@ const rareDiseaseSubsequences = [
   ["Disease 4", "GCGCGCT"],
 ];
 
-const analysisResult = analyzeSequences(fastqData);
-const chartData = formatChartData(analysisResult);
-console.log(analysisResult);
-console.log(chartData);
-
-const dicts = {
-  "0": chartData,
-  "1": chartData,
-  "2": chartData,
-};
-
 export default function Dna() {
   const pathname = usePathname();
   const param = useParams();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<ChartData[]>([]);
 
   const wallet = useWalletStore();
   const client = useClientStore();
@@ -163,7 +150,10 @@ export default function Dna() {
     if (!client.client || !wallet.wallet) return;
 
     if (analysisStore.url[wallet.wallet] == url) {
-      setData(dicts[url]);
+      const fastqData = analysisStore.data[url];
+      const analysisResult = analyzeSequences(fastqData);
+      const chartData = formatChartData(analysisResult);
+      setData(chartData);
     }
   }, [analysisStore.url]);
 
