@@ -8,6 +8,10 @@ DNA sequence data are analyzed by the service in an offline. Only the user who m
 <img width="1427" alt="image" src="https://github.com/ghkdxofla/ethseoul-2024-keth/assets/26355065/ccf06294-7cee-4860-9541-c32c62403f8e">
 <img width="1512" alt="image" src="https://github.com/ghkdxofla/ethseoul-2024-keth/assets/26355065/c3074ce5-48a9-4cd1-909c-61b3ad618819">
 
+## Architecture
+![image](https://github.com/ghkdxofla/midna/assets/26355065/e44e9c40-fa72-4af5-9144-19b91be149e4)
+
+
 ## Setup
 
 1. Auro Wallet
