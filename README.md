@@ -1,5 +1,6 @@
-# Ethseoul 2024 KETH (MiDNA)
-Repository for ETHSeoul 2024 Project, MiDNA
+# MiDNA
+Repository for MiDNA (ETHSeoul 2024 Project)
+See: https://devfolio.co/projects/midna-4a2f
 
 ## Description
 MiDNA (Mina for DNA Analysis) is a service that utilizes Mina and ZKApp.   
