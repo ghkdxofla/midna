@@ -1,5 +1,5 @@
 # MiDNA
-Repository for MiDNA (ETHSeoul 2024 Project)
+Repository for MiDNA (ETHSeoul 2024 Project)   
 See: https://devfolio.co/projects/midna-4a2f
 
 ## Description
