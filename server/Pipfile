@@ -1,0 +1,31 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[requires]
+python_version = "3.11"
+
+[scripts]
+
+[dev-packages]
+flake8 = "*"
+black = "~=24.3.0"
+
+[packages]
+fastapi = "*"
+langchain = "*"
+langchain-community = "*"
+langchainhub = "*"
+langchain-openai = "*"
+langserve = "*"
+pydantic = "==1.10.13"
+python-dotenv = "*"
+openai = "*"
+sse_starlette = "*" # For LangServe
+bs4 = "*"
+uvicorn = "*"
+psycopg2-binary = "*"
+sqlalchemy = "*"
+alembic = "*"
+cleo = "*"
