@@ -8,6 +8,7 @@ analysis_router = APIRouter(prefix="/api/analysis")
 
 @analysis_router.post("/store")
 def store(request_body: DataStoreRequest):
+    
     return EmbedContentResponse(
         message="Data stored successfully",
         data=request_body.data,
