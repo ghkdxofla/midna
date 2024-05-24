@@ -7,8 +7,8 @@ class GeneRepository:
         connector = PostgreConnector.get_connector()
         self.session = connector.get_session()
 
-    def create(self, id: int, user_id: str, data: str):
-        gene = Gene(id=id, user_id=user_id, data=data)
+    def create(self, user_id: str, data: str):
+        gene = Gene(user_id=user_id, data=data)
         self.session.add(gene)
         self.session.commit()
         
