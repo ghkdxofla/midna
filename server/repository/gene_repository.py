@@ -7,7 +7,7 @@ class GeneRepository:
         connector = PostgreConnector.get_connector()
         self.session = connector.get_session()
 
-    def create(self, user_id: str, data: str):
+    def create(self, user_id: int, data: str):
         gene = Gene(user_id=user_id, data=data)
         self.session.add(gene)
         self.session.commit()
@@ -17,7 +17,7 @@ class GeneRepository:
     def find_all(self):
         return self.session.query(Gene).all()
 
-    def update(self, id: int, user_id: str, data: str):
+    def update(self, id: int, user_id: int, data: str):
         gene = self.session.query(Gene).filter_by(id=id).first()
         if gene:
             gene.user_id = user_id
