@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
 
-class DataStoreRequest(BaseModel):
+class AnalysisModifyRequest(BaseModel):
     user_id: str
     data: dict
