@@ -1,23 +1,36 @@
 from fastapi import APIRouter
 
-from service.analysis.request import DataStoreRequest
+from service.analysis.request import AnalysisModifyRequest, AnalysisFetchRequest
 from service.analysis.response import EmbedContentResponse
 from repository.gene_repository import GeneRepository
+from repository.user_repository import UserRepository
 
 analysis_router = APIRouter(prefix="/api/analysis")
 
 
-@analysis_router.post("/store")
-def store(request_body: DataStoreRequest):
-    repository = GeneRepository()
-    repository.create(
+@analysis_router.post("/")
+def store(request_body: AnalysisModifyRequest):
+    user = UserRepository().find_by_id(request_body.user_id)
+    gene_repository = GeneRepository()
+    gene_repository.create(
         id=request_body.id,
-        user_id=request_body.user_id,
+        user_id=user.id,
         data=request_body.data,
     )
     
     return EmbedContentResponse(
         message="Data stored successfully",
         data=request_body.data,
+        status="success",
+    )
+    
+@analysis_router.get("/{id}")
+def get_all(request_body: AnalysisFetchRequest):
+    gene_repository = GeneRepository()
+    genes = gene_repository.find_all()
+    
+    return EmbedContentResponse(
+        message="Data retrieved successfully",
+        data=genes,
         status="success",
     )
