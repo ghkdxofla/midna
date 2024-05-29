@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
 from service.analysis.request import AnalysisModifyRequest, AnalysisFetchRequest
-from service.analysis.response import EmbedContentResponse
+from service.analysis.response import DataStoreResponse
 from repository.gene_repository import GeneRepository
 from repository.user_repository import UserRepository
 
@@ -18,7 +18,7 @@ def store(request_body: AnalysisModifyRequest):
         data=request_body.data,
     )
     
-    return EmbedContentResponse(
+    return DataStoreResponse(
         message="Data stored successfully",
         data=request_body.data,
         status="success",
@@ -29,7 +29,7 @@ def get_all(request_body: AnalysisFetchRequest):
     gene_repository = GeneRepository()
     genes = gene_repository.find_all()
     
-    return EmbedContentResponse(
+    return DataStoreResponse(
         message="Data retrieved successfully",
         data=genes,
         status="success",
