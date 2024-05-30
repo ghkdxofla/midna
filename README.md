@@ -19,6 +19,7 @@ DNA sequence data are analyzed by the service in an offline. Only the user who m
 3. Node.js v18
 4. pnpm
 5. node_modules
+6. pipenv
 
 ### Auro Wallet
 
@@ -56,6 +57,18 @@ corepack enable pnpm
 ```bash
 pnpm i
 ```
+
+### pipenv
+
+```bash
+pipenv sync -d
+pipenv shell
+
+cd server
+python main.py
+```
+
+```bash
 
 ## Run
 
