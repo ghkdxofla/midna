@@ -14,8 +14,11 @@ class GeneRepository:
         
         return gene.id
 
-    def find_all(self):
-        return self.session.query(Gene).all()
+    def find_all_by_user_id(self, user_id: int):
+        return self.session.query(Gene).filter_by(user_id=user_id).all()
+    
+    def find_by_id_and_user_id(self, id: int, user_id: int):
+        return self.session.query(Gene).filter_by(id=id, user_id=user_id).first()
 
     def update(self, id: int, user_id: int, data: str):
         gene = self.session.query(Gene).filter_by(id=id).first()
