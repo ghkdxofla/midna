@@ -4,9 +4,8 @@ import dotenv
 from fastapi import FastAPI
 from starlette.responses import JSONResponse
 
-from core.exception import MidnaException
 from router import init_routers
-
+from server.core.exception import MidnaException
 
 dotenv_file = dotenv.find_dotenv()
 dotenv.load_dotenv(dotenv_file)

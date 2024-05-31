@@ -1,12 +1,12 @@
 from fastapi import APIRouter
 
+from server.repository.gene_repository import GeneRepository
+from server.repository.user_repository import UserRepository
 from server.service.analysis.response.analysis_response import AnalysisResponse
 from server.service.analysis.request.analysis_fetch_request import AnalysisFetchRequest
 from server.service.analysis.request.analysis_modify_request import AnalysisModifyRequest
 from server.service.analysis.request.analysis_analyze_request import AnalysisAnalyzeRequest
 
-from repository.gene_repository import GeneRepository
-from repository.user_repository import UserRepository
 from server.service.analysis.utils import calculate_similarity_score, extract_sequences_from_fastq, format_chart_data
 
 analysis_router = APIRouter(prefix="/api/analysis")

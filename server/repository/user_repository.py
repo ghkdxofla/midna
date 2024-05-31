@@ -1,5 +1,5 @@
-from database.postgre.connector import PostgreConnector
-from model.user import User
+from server.database.connector import PostgreConnector
+from server.model.user import User
 
 
 class UserRepository:

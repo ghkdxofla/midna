@@ -1,8 +1,8 @@
 from sqlalchemy import URL, create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 
-from server.database.base import Base
 from server import setting
+from server.database.base import Base
 
 
 class PostgreConnector:
