@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class DataStoreResponse(BaseModel):
+class AnalysisResponse(BaseModel):
     data: dict
     message: str
     status: str
