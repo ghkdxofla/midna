@@ -1,4 +1,4 @@
-from server.service.analysis.value_object.chart_data import ChartData
+from service.analysis.value_object.chart_data import ChartData
 
 
 def extract_sequences_from_fastq(fastq_content: str) -> list[str]:

@@ -1,5 +1,5 @@
-from server.database.connector import PostgreConnector
-from server.model.gene import Gene
+from database.connector import PostgreConnector
+from model.gene import Gene
 
 
 class GeneRepository:

@@ -1,13 +1,13 @@
 from fastapi import APIRouter
 
-from server.repository.gene_repository import GeneRepository
-from server.repository.user_repository import UserRepository
-from server.service.analysis.response.analysis_response import AnalysisResponse
-from server.service.analysis.request.analysis_fetch_request import AnalysisFetchRequest
-from server.service.analysis.request.analysis_modify_request import AnalysisModifyRequest
-from server.service.analysis.request.analysis_analyze_request import AnalysisAnalyzeRequest
+from repository.gene_repository import GeneRepository
+from repository.user_repository import UserRepository
+from service.analysis.response.analysis_response import AnalysisResponse
+from service.analysis.request.analysis_fetch_request import AnalysisFetchRequest
+from service.analysis.request.analysis_modify_request import AnalysisModifyRequest
+from service.analysis.request.analysis_analyze_request import AnalysisAnalyzeRequest
 
-from server.service.analysis.utils import calculate_similarity_score, extract_sequences_from_fastq, format_chart_data
+from service.analysis.utils import calculate_similarity_score, extract_sequences_from_fastq, format_chart_data
 
 analysis_router = APIRouter(prefix="/api/analysis")
 
@@ -26,7 +26,8 @@ def create(request_body: AnalysisModifyRequest):
         data=gene.id,
         status="success",
     )
-    
+
+
 @analysis_router.get("/")
 def get_all(request_body: AnalysisFetchRequest):
     gene_repository = GeneRepository()
@@ -58,7 +59,7 @@ def analyze(id: int, request_body: AnalysisAnalyzeRequest):
         status="success",
     )
 
-def __analyze_sequences(fastq_data: str, rare_disease_subsequences: list[list[str]]) -> Dict[str, List[Dict[str, int]]]:
+def __analyze_sequences(fastq_data: str, rare_disease_subsequences: list[list[str]]) -> dict[str, list[dict[str, int]]]:
     sequences = extract_sequences_from_fastq(fastq_data)
     chart_data = {}
     for disease, subsequence in rare_disease_subsequences:

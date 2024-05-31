@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, ForeignKey, Text, TIMESTAMP, text
-from server.database.base import Base
+from database.base import Base
 
 
 class Gene(Base):
