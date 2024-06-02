@@ -1,0 +1,19 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres:latest'
+    volumes:
+      - './.postgre:/var/lib/postgresql/data'
+    environment:
+      POSTGRES_DB: midna
+      POSTGRES_USER: midna
+      POSTGRES_PASSWORD: midnapw
+    ports:
+      - '5432:5432'
+    restart: always
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "midna"]
+      interval: 10s
+      timeout: 10s
+      retries: 2
+
