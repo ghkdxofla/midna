@@ -35,7 +35,7 @@ export default function Dna() {
           ["Disease 4", "GCGCGCT"],
         ];
         
-        const analysisResponse = await apiClient.post('/api/analysis/', {
+        const analysisResponse = await apiClient.post(`/api/analysis/${wallet.wallet}/analyze`, {
           fastq_data: fastqData,
           rare_disease_subsequences: rareDiseaseSubsequences,
         });
